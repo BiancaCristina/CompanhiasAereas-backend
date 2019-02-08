@@ -8,7 +8,7 @@ import javax.persistence.Id
 @Entity
 data class Manutencao (
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0
+        val id: Long
 
         // Mecanico
         // Aeronave

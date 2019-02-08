@@ -9,7 +9,7 @@ import javax.persistence.Id
 @Entity
 data class Voo (
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0
+        val id: Long
 
         //var origem:
         //var destino:

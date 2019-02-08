@@ -1,19 +1,19 @@
 package br.ufu.facom.bianca.CompanhiaArea.domain
 
-import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
 data class Piloto (
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
+    @Id @GeneratedValue
+    override val id: Long,
 
-        var nome: String,
-        var cpf: String,
-        var salario: Number
-) {
+    override var nome: String,
+    override var cpf: String,
+    override var salario: Number
+): Funcionario (id, nome, cpf, salario) {
+
     // Certificados
+
 }

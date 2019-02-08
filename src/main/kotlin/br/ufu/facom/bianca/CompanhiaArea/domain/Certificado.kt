@@ -8,8 +8,7 @@ import javax.persistence.Id
 @Entity
 data class Certificado (
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0
-
+        val id: Long
         // Piloto
         // Aeronave
         // Nota
