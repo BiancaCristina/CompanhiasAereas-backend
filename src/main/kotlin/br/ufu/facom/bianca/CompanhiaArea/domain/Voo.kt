@@ -9,12 +9,13 @@ import javax.persistence.Id
 @Entity
 data class Voo (
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long
+        val id: Long,
 
-        //var origem:
-        //var destino:
-        //var aeronave
+        var origem: String,
+        var destino: String
+
 ) {
+    //var aeronave
     var distancia: Number = 0
     var preco: Number = 0
     var partidaPrevista: LocalDateTime ? = null
