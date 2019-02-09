@@ -12,6 +12,7 @@ data class Certificado (
         // Piloto
         // Aeronave
         // Nota
+        // Data que foi tirada e data que expira
 ) {
-    // Data que foi tirada e data que expira
+
 }

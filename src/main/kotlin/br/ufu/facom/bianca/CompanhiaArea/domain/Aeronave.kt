@@ -1,9 +1,7 @@
 package br.ufu.facom.bianca.CompanhiaArea.domain
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.fasterxml.jackson.annotation.JsonIgnore
+import javax.persistence.*
 
 @Entity
 data class Aeronave (
@@ -13,6 +11,11 @@ data class Aeronave (
         var nome: String,
         var distanciaLimite: Number
 ) {
-    // var manuntencoes
-    // voos realizados
+    @JsonIgnore
+    @OneToMany(mappedBy="aeronave")
+    var voos: MutableSet<Voo> = HashSet()
+
+    //var manuntencoes
+    //var teste = Voo(0,"Uberlândia", "São Paulo", 590.4, 312.32)
+
 }

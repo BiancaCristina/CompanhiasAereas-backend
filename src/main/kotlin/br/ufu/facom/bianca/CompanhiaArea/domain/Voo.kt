@@ -1,10 +1,7 @@
 package br.ufu.facom.bianca.CompanhiaArea.domain
 
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Voo (
@@ -12,13 +9,16 @@ data class Voo (
         val id: Long,
 
         var origem: String,
-        var destino: String
-
+        var destino: String,
+        var distancia: Number,
+        var preco: Number,
+        var partidaPrevista: LocalDateTime ? = null,
+        var chegadaPrevista: LocalDateTime ? = null
 ) {
-    //var aeronave
-    var distancia: Number = 0
-    var preco: Number = 0
-    var partidaPrevista: LocalDateTime ? = null
-    var chegadaPrevista: LocalDateTime ? = null
-    //var status
+        @ManyToOne
+        @JoinColumn(name="aeronave_id")
+        lateinit var aeronave: Aeronave
+
+
+
 }
