@@ -2,17 +2,18 @@ package br.ufu.facom.bianca.CompanhiaArea.domain
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
 data class Mecanico (
-    @Id @GeneratedValue
-    override val id: Long,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long,
 
-    override var nome: String,
-    override var cpf: String,
-    override var salario: Number
-): Funcionario (id, nome, cpf, salario) {
+    var nome: String,
+    var cpf: String,
+    var salario: Number
+) {
 
     // Relatorios de manuntencao
 

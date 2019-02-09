@@ -1,8 +1,12 @@
 package br.ufu.facom.bianca.CompanhiaArea.services
 
 import br.ufu.facom.bianca.CompanhiaArea.domain.Aeronave
+import br.ufu.facom.bianca.CompanhiaArea.domain.Mecanico
+import br.ufu.facom.bianca.CompanhiaArea.domain.Piloto
 import br.ufu.facom.bianca.CompanhiaArea.domain.Voo
 import br.ufu.facom.bianca.CompanhiaArea.repositories.AeronaveRepository
+import br.ufu.facom.bianca.CompanhiaArea.repositories.MecanicoRepository
+import br.ufu.facom.bianca.CompanhiaArea.repositories.PilotoRepository
 import br.ufu.facom.bianca.CompanhiaArea.repositories.VooRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
@@ -17,6 +21,12 @@ class DBService {
 
     @Autowired
     private lateinit var aeronaveRepository: AeronaveRepository
+
+    @Autowired
+    private lateinit var pilotoRepository: PilotoRepository
+
+    @Autowired
+    private lateinit var mecanicoRepository: MecanicoRepository
 
     fun instantiateTestDataBase(): Unit {
         // Instância dos voo
@@ -35,6 +45,19 @@ class DBService {
 
         aeronaveRepository.saveAll(Arrays.asList(a1,a2))
         vooRepository.saveAll(Arrays.asList(v1, v2, v3))
+
+        // Instância dos mecânicos
+        var m1 = Mecanico(0, "Josefina", "82566409013", 9832.43)
+        var m2 = Mecanico(0,"Hugo","85356650051", 2345.12)
+
+        // Instância dos pilotos
+        var p1 = Piloto(0, "Bianca","45671190029", 4563.76)
+        var p2 = Piloto(0,"Paolo", "63943938000", 3215.34)
+
+
+
+        mecanicoRepository.saveAll(Arrays.asList(m1,m2))
+        pilotoRepository.saveAll(Arrays.asList(p1,p2))
 
     }
 }

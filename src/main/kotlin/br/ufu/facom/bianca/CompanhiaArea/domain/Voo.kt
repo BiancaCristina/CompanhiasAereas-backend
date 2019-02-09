@@ -19,6 +19,4 @@ data class Voo (
         @JoinColumn(name="aeronave_id")
         lateinit var aeronave: Aeronave
 
-
-
 }
