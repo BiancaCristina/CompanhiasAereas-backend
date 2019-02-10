@@ -1,10 +1,7 @@
 package br.ufu.facom.bianca.CompanhiaArea.domain
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnore
-import java.time.LocalDate
 import javax.persistence.*
-import java.util.Set
 
 @Entity
 data class Certificado (
