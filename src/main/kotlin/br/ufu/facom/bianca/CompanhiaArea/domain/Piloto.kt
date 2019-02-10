@@ -1,9 +1,9 @@
 package br.ufu.facom.bianca.CompanhiaArea.domain
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import org.hibernate.mapping.Join
+import java.time.LocalDate
+import javax.persistence.*
+import java.util.Set
 
 @Entity
 data class Piloto (
@@ -13,8 +13,13 @@ data class Piloto (
     var nome: String,
     var cpf: String,
     var salario: Number
+
 ) {
 
-    // Certificados
+    @ManyToMany
+    @JoinTable(name="certificados_id",
+            joinColumns = [JoinColumn(name="certificado_id", referencedColumnName = "id")],
+            inverseJoinColumns = [JoinColumn(name = "piloto_id", referencedColumnName = "id")])
+    var certificados: MutableSet<Certificado> = HashSet()
 
 }

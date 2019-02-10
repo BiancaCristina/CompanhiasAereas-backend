@@ -1,16 +1,14 @@
 package br.ufu.facom.bianca.CompanhiaArea.services
 
-import br.ufu.facom.bianca.CompanhiaArea.domain.Aeronave
-import br.ufu.facom.bianca.CompanhiaArea.domain.Mecanico
-import br.ufu.facom.bianca.CompanhiaArea.domain.Piloto
-import br.ufu.facom.bianca.CompanhiaArea.domain.Voo
-import br.ufu.facom.bianca.CompanhiaArea.repositories.AeronaveRepository
-import br.ufu.facom.bianca.CompanhiaArea.repositories.MecanicoRepository
-import br.ufu.facom.bianca.CompanhiaArea.repositories.PilotoRepository
-import br.ufu.facom.bianca.CompanhiaArea.repositories.VooRepository
+import br.ufu.facom.bianca.CompanhiaArea.domain.*
+import br.ufu.facom.bianca.CompanhiaArea.repositories.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Service
@@ -27,6 +25,9 @@ class DBService {
 
     @Autowired
     private lateinit var mecanicoRepository: MecanicoRepository
+
+    @Autowired
+    private lateinit var certificadoRepository: CertificadoRepository
 
     fun instantiateTestDataBase(): Unit {
         // Instância dos voo
@@ -54,10 +55,23 @@ class DBService {
         var p1 = Piloto(0, "Bianca","45671190029", 4563.76)
         var p2 = Piloto(0,"Paolo", "63943938000", 3215.34)
 
-
-
         mecanicoRepository.saveAll(Arrays.asList(m1,m2))
         pilotoRepository.saveAll(Arrays.asList(p1,p2))
 
+        // Instância dos certificados dos pilotos
+        var c1 = Certificado(0)
+        var c2 = Certificado(0)
+
+        c1.aeronave = a1
+        c2.aeronave = a2
+
+        certificadoRepository.saveAll(Arrays.asList(c1,c2))
+
+        p1.certificados.add(c1)
+        p1.certificados.add(c2)
+        p2.certificados.add(c1)
+
+        certificadoRepository.saveAll(Arrays.asList(c1,c2))
+        pilotoRepository.saveAll(Arrays.asList(p1,p2))
     }
 }
