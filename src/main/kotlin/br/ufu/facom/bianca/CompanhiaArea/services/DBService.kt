@@ -29,6 +29,9 @@ class DBService {
     @Autowired
     private lateinit var certificadoRepository: CertificadoRepository
 
+    @Autowired
+    private lateinit var manutencaoRepository: ManutencaoRepository
+
     fun instantiateTestDataBase(): Unit {
         // Instância dos voo
         var v1 = Voo(0,"Uberlândia", "São Paulo", 590.4, 312.32)
@@ -73,5 +76,28 @@ class DBService {
 
         certificadoRepository.saveAll(Arrays.asList(c1,c2))
         pilotoRepository.saveAll(Arrays.asList(p1,p2))
+
+        // Instância das manutenções
+        var formato = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
+        var manu1 = Manutencao(0, LocalDate.parse("01/10/2015", formato))
+        var manu2 = Manutencao(0, LocalDate.parse("20/02/2000", formato))
+        var manu3 = Manutencao(0, LocalDate.parse("02/02/2019", formato))
+        var manu4 = Manutencao(0, LocalDate.parse("17/07/1997", formato))
+
+        manu1.aeronave = a1
+        manu2.aeronave = a2
+        manu3.aeronave = a2
+        manu4.aeronave = a2
+
+        manu1.mecanicos.add(m2)
+        manu2.mecanicos.add(m1)
+        manu2.mecanicos.add(m2)
+        manu3.mecanicos.add(m2)
+        manu4.mecanicos.add(m1)
+        manu4.mecanicos.add(m2)
+
+        manutencaoRepository.saveAll(Arrays.asList(manu1, manu2, manu3, manu4))
+        aeronaveRepository.saveAll(Arrays.asList(a1,a2))
     }
 }

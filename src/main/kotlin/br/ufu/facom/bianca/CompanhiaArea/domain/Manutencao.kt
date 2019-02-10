@@ -1,17 +1,26 @@
 package br.ufu.facom.bianca.CompanhiaArea.domain
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.fasterxml.jackson.annotation.JsonFormat
+import java.time.LocalDate
+import javax.persistence.*
 
 @Entity
 data class Manutencao (
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long,
 
-        // Mecanico
-        // Aeronave
+    // Aeronave
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    var data: LocalDate
+
 ) {
-    // var manuntencoes
+    @ManyToMany
+    @JoinTable(name="mecanicos_id",
+            joinColumns = [JoinColumn(name="mecanico_id", referencedColumnName = "id")],
+            inverseJoinColumns = [JoinColumn(name="manutencao_id", referencedColumnName = "id")])
+    var mecanicos: MutableSet<Mecanico> = HashSet()
+
+    @ManyToOne
+    @JoinColumn(name="aeronave_id")
+    lateinit var aeronave: Aeronave
 }

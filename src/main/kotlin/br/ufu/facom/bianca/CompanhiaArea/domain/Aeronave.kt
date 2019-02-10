@@ -19,7 +19,7 @@ data class Aeronave (
     @OneToOne(mappedBy = "aeronave")
     lateinit var certificado: Certificado
 
-    //var manuntencoes
-    //var teste = Voo(0,"Uberlândia", "São Paulo", 590.4, 312.32)
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "aeronave")
+    var manutencoes: MutableSet<Manutencao> = HashSet()
 }

@@ -1,9 +1,7 @@
 package br.ufu.facom.bianca.CompanhiaArea.domain
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.fasterxml.jackson.annotation.JsonIgnore
+import javax.persistence.*
 
 @Entity
 data class Mecanico (
@@ -15,6 +13,8 @@ data class Mecanico (
     var salario: Number
 ) {
 
-    // Relatorios de manuntencao
+    @JsonIgnore
+    @ManyToMany(mappedBy = "mecanicos")
+    var manutencoes: MutableSet<Manutencao> = HashSet()
 
 }
