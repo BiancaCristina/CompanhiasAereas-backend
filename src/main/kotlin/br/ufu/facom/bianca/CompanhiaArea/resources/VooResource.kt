@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 import javax.xml.ws.Response
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+
+
 
 @RestController
 @RequestMapping(value=["/voos"])
@@ -27,12 +30,16 @@ class VooResource {
     }
 
     @RequestMapping(method=[RequestMethod.POST])
-    fun insert(@Valid @RequestBody objDTO: NewVooDTO): ResponseEntity<*> {
+    fun insert(@Valid @RequestBody objDTO: NewVooDTO): ResponseEntity<Unit> {
         // Esse método converte o objDTO recebido como parâmetro em uma entidade normal e o insere
 
         var obj = vooService.fromDTO(objDTO)
         obj = vooService.insert(obj)
-        return ResponseEntity.ok().body(obj)
+
+        // Retorna a URI do objeto criado
+        val uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.id).toUri()
+
+        return ResponseEntity.created(uri).build()
     }
 
     @RequestMapping(value=["/{id}"], method=[RequestMethod.PUT])

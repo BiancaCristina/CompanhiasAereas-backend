@@ -21,7 +21,7 @@ class VooService {
 
     fun insert (obj: Voo): Voo {
         // Método que insere um objeto no banco
-        obj.id = null   // Garante que não tem nenhum id ainda
+        obj.id = 0   // Garante que não tem nenhum id ainda
         return this.repo.save(obj)
     }
 
