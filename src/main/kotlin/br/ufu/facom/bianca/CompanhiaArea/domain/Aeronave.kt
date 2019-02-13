@@ -6,10 +6,10 @@ import javax.persistence.*
 @Entity
 data class Aeronave (
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        var id: Long,
 
         var nome: String,
-        var distanciaLimite: Number
+        var distanciaLimite: Number ?= null
 ) {
     @JsonIgnore
     @OneToMany(mappedBy="aeronave")

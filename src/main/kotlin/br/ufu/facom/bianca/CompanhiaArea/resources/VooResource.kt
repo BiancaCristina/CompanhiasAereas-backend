@@ -45,12 +45,9 @@ class VooResource {
     @RequestMapping(value=["/{id}"], method=[RequestMethod.PUT])
     fun update(@Valid @RequestBody objDTO: VooDTO,
                @PathVariable id: Long): ResponseEntity<Unit> {
-        //var obj = vooService.findById(id)
-        //obj.id = id // Garante que o ID passado como parâmetro pertence ao objeto a ser atualizado
         this.vooService.update(objDTO, id)
 
         return ResponseEntity.noContent().build()
-        //return ResponseEntity.ok().body(obj)
     }
 
     @RequestMapping(value=["/{id}"], method=[RequestMethod.DELETE])
