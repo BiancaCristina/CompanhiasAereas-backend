@@ -18,14 +18,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 class VooResource {
 
     @Autowired
-    private lateinit var vooService: VooService
+    private lateinit var service: VooService
 
     @RequestMapping(value=["/{id}"], method= [RequestMethod.GET])
     fun find(@PathVariable id: Long): ResponseEntity<*> {
         // Função que busca um objeto pelo seu ID
         // O retorno é uma resposta OK e o corpo do objeto
 
-        var obj = vooService.findById(id)
+        var obj = service.findById(id)
         return ResponseEntity.ok().body(obj)
     }
 
@@ -33,8 +33,8 @@ class VooResource {
     fun insert(@Valid @RequestBody objDTO: NewVooDTO): ResponseEntity<Unit> {
         // Esse método converte o objDTO recebido como parâmetro em uma entidade normal e o insere
 
-        var obj = vooService.fromDTO(objDTO)
-        obj = vooService.insert(obj)
+        var obj = service.fromDTO(objDTO)
+        obj = service.insert(obj)
 
         // Retorna a URI do objeto criado
         val uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.id).toUri()
@@ -45,14 +45,14 @@ class VooResource {
     @RequestMapping(value=["/{id}"], method=[RequestMethod.PUT])
     fun update(@Valid @RequestBody objDTO: VooDTO,
                @PathVariable id: Long): ResponseEntity<Unit> {
-        this.vooService.update(objDTO, id)
+        this.service.update(objDTO, id)
 
         return ResponseEntity.noContent().build()
     }
 
     @RequestMapping(value=["/{id}"], method=[RequestMethod.DELETE])
     fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
-        vooService.delete(id)
+        service.delete(id)
 
         return ResponseEntity.noContent().build()
     }

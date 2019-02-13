@@ -13,14 +13,14 @@ import javax.validation.Valid
 class AeronaveResource {
 
     @Autowired
-    private lateinit var aeronaveService: AeronaveService
+    private lateinit var service: AeronaveService
 
     @RequestMapping(value=["/{id}"], method= [RequestMethod.GET])
     fun find(@PathVariable id: Long): ResponseEntity<*> {
         // Função que busca um objeto pelo seu ID
         // O retorno é uma resposta OK e o corpo do objeto
 
-        var obj = aeronaveService.findById(id)
+        var obj = service.findById(id)
         return ResponseEntity.ok().body(obj)
     }
 
@@ -28,8 +28,8 @@ class AeronaveResource {
     fun insert(@Valid @RequestBody objDTO: AeronaveDTO): ResponseEntity<Unit> {
         // Esse método converte o objDTO recebido como parâmetro em uma entidade normal e o insere
 
-        var obj = aeronaveService.fromDTO(objDTO)
-        obj = aeronaveService.insert(obj)
+        var obj = service.fromDTO(objDTO)
+        obj = service.insert(obj)
 
         // Retorna a URI do objeto criado
         val uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.id).toUri()
@@ -40,14 +40,14 @@ class AeronaveResource {
     @RequestMapping(value=["/{id}"], method=[RequestMethod.PUT])
     fun update(@Valid @RequestBody objDTO: AeronaveDTO,
                @PathVariable id: Long): ResponseEntity<Unit> {
-        this.aeronaveService.update(objDTO, id)
+        this.service.update(objDTO, id)
 
         return ResponseEntity.noContent().build()
     }
 
     @RequestMapping(value=["/{id}"], method=[RequestMethod.DELETE])
     fun delete(@PathVariable id: Long): ResponseEntity<Unit> {
-        aeronaveService.delete(id)
+        service.delete(id)
 
         return ResponseEntity.noContent().build()
     }

@@ -6,11 +6,11 @@ import javax.persistence.*
 @Entity
 data class Mecanico (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    var id: Long,
 
     var nome: String,
     var cpf: String,
-    var salario: Number
+    var salario: Number ?= null
 ) {
 
     @JsonIgnore
