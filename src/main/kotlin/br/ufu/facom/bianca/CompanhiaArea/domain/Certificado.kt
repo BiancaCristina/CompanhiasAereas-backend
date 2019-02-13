@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 data class Certificado (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long
+    var id: Long
 ) {
 
     @OneToOne
