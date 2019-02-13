@@ -1,18 +1,15 @@
 package br.ufu.facom.bianca.CompanhiaArea.domain
 
-import org.hibernate.mapping.Join
-import java.time.LocalDate
 import javax.persistence.*
-import java.util.Set
 
 @Entity
 data class Piloto (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    var id: Long,
 
     var nome: String,
     var cpf: String,
-    var salario: Number
+    var salario: Number ?= null
 
 ) {
 
