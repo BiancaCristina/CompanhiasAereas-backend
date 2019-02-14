@@ -7,7 +7,6 @@ import br.ufu.facom.bianca.CompanhiaArea.repositories.VooRepository
 import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.ObjectNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import kotlin.reflect.KClass
 
 @Service
 class VooService {
