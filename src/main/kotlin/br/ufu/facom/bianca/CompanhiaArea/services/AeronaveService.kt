@@ -3,6 +3,7 @@ package br.ufu.facom.bianca.CompanhiaArea.services
 import br.ufu.facom.bianca.CompanhiaArea.domain.Aeronave
 import br.ufu.facom.bianca.CompanhiaArea.dto.AeronaveDTO
 import br.ufu.facom.bianca.CompanhiaArea.repositories.AeronaveRepository
+import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.ObjectNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,9 +14,12 @@ class AeronaveService {
     private lateinit var repo: AeronaveRepository
 
     fun findById (id: Long): Aeronave {
-        var obj = repo.findById(id).orElse(null)
+        var obj = repo.findById(id)
 
-        return obj
+        return obj.orElseThrow{ ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + " Tipo: " + Aeronave::class.qualifiedName
+        )
+        }
     }
 
     fun insert (obj: Aeronave): Aeronave {

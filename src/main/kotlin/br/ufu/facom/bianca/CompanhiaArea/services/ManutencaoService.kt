@@ -5,6 +5,7 @@ import br.ufu.facom.bianca.CompanhiaArea.dto.ManutencaoDTO
 import br.ufu.facom.bianca.CompanhiaArea.repositories.AeronaveRepository
 import br.ufu.facom.bianca.CompanhiaArea.repositories.ManutencaoRepository
 import br.ufu.facom.bianca.CompanhiaArea.repositories.MecanicoRepository
+import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.ObjectNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -21,9 +22,12 @@ class ManutencaoService {
     private lateinit var mecanicoRepository: MecanicoRepository
 
     fun findById (id: Long): Manutencao {
-        var obj = repo.findById(id).orElse(null)
+        var obj = repo.findById(id)
 
-        return obj
+        return obj.orElseThrow{ ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + " Tipo: " + Manutencao::class.qualifiedName
+        )
+        }
     }
 
     fun insert (obj: Manutencao): Manutencao {

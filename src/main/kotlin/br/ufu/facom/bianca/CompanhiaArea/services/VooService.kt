@@ -4,8 +4,10 @@ import br.ufu.facom.bianca.CompanhiaArea.domain.Voo
 import br.ufu.facom.bianca.CompanhiaArea.dto.NewVooDTO
 import br.ufu.facom.bianca.CompanhiaArea.dto.VooDTO
 import br.ufu.facom.bianca.CompanhiaArea.repositories.VooRepository
+import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.ObjectNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import kotlin.reflect.KClass
 
 @Service
 class VooService {
@@ -14,9 +16,11 @@ class VooService {
     private lateinit var repo: VooRepository
 
     fun findById (id: Long): Voo {
-        var obj = repo.findById(id).orElse(null);
+        var obj = repo.findById(id)
 
-        return obj;
+        return obj.orElseThrow{ ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + " Tipo: " + Voo::class.qualifiedName
+        )}
     }
 
     fun insert (obj: Voo): Voo {

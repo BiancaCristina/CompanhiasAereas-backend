@@ -3,6 +3,7 @@ package br.ufu.facom.bianca.CompanhiaArea.services
 import br.ufu.facom.bianca.CompanhiaArea.domain.Piloto
 import br.ufu.facom.bianca.CompanhiaArea.dto.PilotoDTO
 import br.ufu.facom.bianca.CompanhiaArea.repositories.PilotoRepository
+import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.ObjectNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,9 +14,12 @@ class PilotoService {
     private lateinit var repo: PilotoRepository
 
     fun findById (id: Long): Piloto {
-        var obj = repo.findById(id).orElse(null);
+        var obj = repo.findById(id)
 
-        return obj;
+        return obj.orElseThrow{ ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + " Tipo: " + Piloto::class.qualifiedName
+        )
+        }
     }
 
     fun insert (obj: Piloto): Piloto {

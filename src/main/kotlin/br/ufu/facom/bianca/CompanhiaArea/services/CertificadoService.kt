@@ -3,9 +3,9 @@ package br.ufu.facom.bianca.CompanhiaArea.services
 import br.ufu.facom.bianca.CompanhiaArea.domain.Aeronave
 import br.ufu.facom.bianca.CompanhiaArea.domain.Certificado
 import br.ufu.facom.bianca.CompanhiaArea.dto.AeronaveDTO
-import br.ufu.facom.bianca.CompanhiaArea.dto.CertificadoDTO
 import br.ufu.facom.bianca.CompanhiaArea.repositories.AeronaveRepository
 import br.ufu.facom.bianca.CompanhiaArea.repositories.CertificadoRepository
+import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.ObjectNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -19,9 +19,12 @@ class CertificadoService {
     private lateinit var repoAeronave: AeronaveRepository
 
     fun findById (id: Long): Certificado {
-        var obj = repo.findById(id).orElse(null);
+        var obj = repo.findById(id)
 
-        return obj;
+        return obj.orElseThrow{ ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + " Tipo: " + Certificado::class.qualifiedName
+        )
+        }
     }
 
     fun insert (aeronaveDTO: AeronaveDTO): Certificado {
