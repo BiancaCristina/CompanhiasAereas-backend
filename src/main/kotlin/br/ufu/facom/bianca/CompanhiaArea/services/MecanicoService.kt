@@ -3,8 +3,10 @@ package br.ufu.facom.bianca.CompanhiaArea.services
 import br.ufu.facom.bianca.CompanhiaArea.domain.Mecanico
 import br.ufu.facom.bianca.CompanhiaArea.dto.MecanicoDTO
 import br.ufu.facom.bianca.CompanhiaArea.repositories.MecanicoRepository
+import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.DataIntegrityException
 import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.ObjectNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 
 @Service
@@ -49,7 +51,14 @@ class MecanicoService {
 
     fun delete (id: Long) {
         this.findById(id)
-        repo.deleteById(id)
+
+        try {
+            repo.deleteById(id)
+        }
+
+        catch (e: DataIntegrityViolationException) {
+            throw DataIntegrityException("Não é possível excluir um mecânico com manutenções associadas a ele.")
+        }
     }
 
     fun fromDTO (objDTO: MecanicoDTO): Mecanico {

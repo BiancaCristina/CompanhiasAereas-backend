@@ -5,8 +5,10 @@ import br.ufu.facom.bianca.CompanhiaArea.domain.Certificado
 import br.ufu.facom.bianca.CompanhiaArea.dto.AeronaveDTO
 import br.ufu.facom.bianca.CompanhiaArea.repositories.AeronaveRepository
 import br.ufu.facom.bianca.CompanhiaArea.repositories.CertificadoRepository
+import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.DataIntegrityException
 import br.ufu.facom.bianca.CompanhiaArea.services.exceptions.ObjectNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 
 @Service
@@ -59,6 +61,13 @@ class CertificadoService {
 
     fun delete (id: Long) {
         this.findById(id)
-        repo.deleteById(id)
+
+        try {
+            repo.deleteById(id)
+        }
+
+        catch (e: DataIntegrityViolationException) {
+            throw DataIntegrityException("Não é possível excluir um certificado com pilotos ou aeronaves associados a ele.")
+        }
     }
 }
