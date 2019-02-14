@@ -2,18 +2,20 @@ package br.ufu.facom.bianca.CompanhiaArea.domain
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.persistence.*
 
 @Entity
 data class Manutencao (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    var id: Long,
 
     // Aeronave
     @JsonFormat(pattern = "dd/MM/yyyy")
     var data: LocalDate
 
 ) {
+
     @ManyToMany
     @JoinTable(name="mecanicos_id",
             joinColumns = [JoinColumn(name="mecanico_id", referencedColumnName = "id")],
