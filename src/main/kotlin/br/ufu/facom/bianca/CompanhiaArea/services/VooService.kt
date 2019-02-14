@@ -47,6 +47,7 @@ class VooService {
         newObj.distancia = objDTO?.distancia?:newObj.distancia
         newObj.partidaPrevista = objDTO.partidaPrevista?:newObj.partidaPrevista
         newObj.chegadaPrevista = objDTO.chegadaPrevista?:newObj.chegadaPrevista
+        newObj.status = objDTO.status?:newObj.status
     }
 
     fun delete (id: Long) {
